@@ -3,19 +3,10 @@ import { store as rootStore } from '@store/mobx';
 // import { store } from '@store/redux';
 import { store } from '@store/redux-toolkit';
 import { ContactContext, contactStore } from '@store/mobx/contact';
-
 import { Provider } from 'mobx-react';
 import { ThemeProvider } from 'styled-components';
 import { ToastProvider } from './toaster';
 import { Provider as ReduxProvider } from 'react-redux';
-
-// function combineProviders(...providers: FC[]) {
-//   return ({ children }: any) =>
-//     providers.reduce(
-//       (prev, CurrentProvider) => <CurrentProvider>{prev}</CurrentProvider>,
-//       children
-//     );
-// }
 
 function AllProviders({ children }: any) {
   return (

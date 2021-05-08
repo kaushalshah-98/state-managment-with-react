@@ -1,9 +1,10 @@
-import ContactList from '@components/mobx/ContactList';
-import ContactInput from '@components/mobx/ContactInput';
+// import ContactList from '@components/mobx/ContactList';
+// import ContactInput from '@components/mobx/ContactInput';
 // import { observer } from 'mobx-react';
 // import ContactList from '@components/redux/ContactList';
 // import ContactInput from '@components/redux/ContactInput';
-
+import ContactList from '@components/redux-toolkit/ContactList';
+import ContactInput from '@components/redux-toolkit/ContactInput';
 function App() {
   return (
     <div className="container mx-auto">

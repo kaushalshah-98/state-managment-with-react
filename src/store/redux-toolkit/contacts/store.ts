@@ -1,22 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { get, deleteContact, createContact } from './effetcs';
+interface State {
+  contacts: any[];
+}
+const initialState: State = {
+  contacts: []
+};
 export const contactSlice = createSlice({
   name: 'contacts',
-  initialState: {
-    contacts: []
-  },
-  reducers: {
-    setContacts: (state: any, { payload }: any) => {
-      state.contacts = payload;
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [get.fulfilled]: (state, action) => {
+      state.contacts = action.payload;
     },
-    createContact: (state: any, { payload }: any) => {
-      state.contacts.push(payload);
+    [deleteContact.fulfilled]: (state, action) => {
+      state.contacts = state.contacts.filter((i: any) => i.id !== action.meta.arg.contactId);
     },
-    deleteContact: (state, { payload }) => {
-      state.contacts = state.contacts.filter((c: any) => c.id !== payload);
+    [createContact.fulfilled]: (state, action) => {
+      state.contacts.push(action.payload);
     }
   }
 });
 
 export const contactReducer = contactSlice.reducer;
-export const { setContacts, deleteContact, createContact } = contactSlice.actions;

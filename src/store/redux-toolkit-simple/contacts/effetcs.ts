@@ -1,5 +1,5 @@
 import { ContactService } from '@src/services/contactApi';
-import { setContacts, createContact, deleteContact } from './actions';
+import { setContacts, createContact, deleteContact } from './store';
 
 export const get = () => async (dispatch: any) => {
   try {
@@ -17,6 +17,7 @@ export const create = (contact: any) => async (dispatch: any) => {
     console.log('ERR :: Contact ADD Operation');
   }
 };
+
 export const remove = (courseId: number) => async (dispatch: any) => {
   try {
     await ContactService.delete(courseId);
@@ -25,3 +26,10 @@ export const remove = (courseId: number) => async (dispatch: any) => {
     console.log('ERR :: Contact DELETE Operation');
   }
 };
+
+// Usage in component as hooks
+// const state = useSelector((state: any) => state.contactReducer);
+// state.contacts
+
+// const dispatch = useDipatch();
+// dispatch(create(remove(id)))

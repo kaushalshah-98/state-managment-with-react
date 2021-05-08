@@ -1,4 +1,4 @@
-import { get, remove } from '@store/redux/contacts/effects';
+import { get, remove } from '@store/redux-saga/contacts/effects';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteIcon, PhoneIcon, UserIcon } from '../../../public/assets/icons';

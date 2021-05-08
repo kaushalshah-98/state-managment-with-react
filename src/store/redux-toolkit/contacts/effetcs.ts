@@ -1,40 +1,17 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ContactService } from '@src/services/contactApi';
-import { setContacts, createContact, deleteContact } from './store';
 
-export const get = () => {
-  return async (dispatch: any) => {
-    try {
-      const res = await ContactService.getAll();
-      dispatch(setContacts(res));
-    } catch (error) {
-      console.log('ERR :: Contact GET Operation');
-    }
-  };
-};
-export const create = (contact: any) => {
-  return async (dispatch: any) => {
-    try {
-      await ContactService.add(contact);
-      dispatch(createContact(contact));
-    } catch (error) {
-      console.log('ERR :: Contact ADD Operation');
-    }
-  };
-};
-export const remove = (courseId: number) => {
-  return async (dispatch: any) => {
-    try {
-      await ContactService.delete(courseId);
-      dispatch(deleteContact(courseId));
-    } catch (error) {
-      console.log('ERR :: Contact DELETE Operation');
-    }
-  };
-};
+export const get: any = createAsyncThunk(
+  `contacts/get`,
+  async (obj, { dispatch, getState }) => await ContactService.getAll()
+);
 
-// Usage in component as hooks
-// const state = useSelector((state: any) => state.contactReducer);
-// state.contacts
+export const createContact: any = createAsyncThunk(
+  `contacts/create`,
+  async ({ contact }: any, { dispatch, getState }) => await ContactService.add(contact)
+);
 
-// const dispatch = useDipatch();
-// dispatch(create(remove(id)))
+export const deleteContact: any = createAsyncThunk(
+  `contacts/delete`,
+  async ({ contactId }: any, { dispatch, getState }) => await ContactService.delete(contactId)
+);

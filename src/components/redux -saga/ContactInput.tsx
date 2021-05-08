@@ -1,6 +1,6 @@
 // tslint:disable: linebreak-style
 
-import { create } from '@store/redux/contacts/effects';
+import { create } from '@store/redux-saga/contacts/effects';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoadingSpinner } from '../../../public/assets/icons';

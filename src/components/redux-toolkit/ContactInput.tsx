@@ -1,7 +1,7 @@
 // tslint:disable: linebreak-style
 
-import { create } from '@store/redux/contacts/effects';
-// import { create } from '@store/redux-toolkit-simple/contacts/effetcs';
+// import { create } from '@store/redux/contacts/effects';
+import { createContact } from '@store/redux-toolkit/contacts/effetcs';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoadingSpinner } from '../../../public/assets/icons';
@@ -21,7 +21,7 @@ function ContactInput(props: any) {
       return;
     }
     setLoading(true);
-    dispatch(create({ id: new Date(), name, phone }));
+    dispatch(createContact({ contact: { id: new Date(), name, phone } }));
     nameInputRef.current.value = '';
     phoneInputRef.current.value = '';
     setLoading(false);

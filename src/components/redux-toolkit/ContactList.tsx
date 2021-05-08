@@ -1,6 +1,4 @@
-import { get, remove } from '@store/redux/contacts/effects';
-// import { get, remove } from '@store/redux-toolkit-simple/contacts/effetcs';
-
+import { get, deleteContact } from '@store/redux-toolkit/contacts/effetcs';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteIcon, PhoneIcon, UserIcon } from '../../../public/assets/icons';
@@ -13,7 +11,7 @@ function ContactList(props: any) {
     if (!window.confirm('Are you sure?')) {
       return;
     }
-    dispatch(remove(id));
+    dispatch(deleteContact({ contactId: id }));
   };
 
   useEffect(() => {

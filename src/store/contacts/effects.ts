@@ -1,17 +1,28 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ContactService } from '@src/services/contactApi';
+import { setContacts, createContact, deleteContact } from './store';
 
-export const get: any = createAsyncThunk(
-  `contacts/get`,
-  async (obj, { dispatch, getState }) => await ContactService.getAll()
-);
+export const get = () => async (dispatch: any) => {
+  try {
+    const res = await ContactService.getAll();
+    dispatch(setContacts(res));
+  } catch (error) {
+    console.log('ERR :: Contact GET Operation');
+  }
+};
+export const create = (contact: any) => async (dispatch: any) => {
+  try {
+    await ContactService.add(contact);
+    dispatch(createContact(contact));
+  } catch (error) {
+    console.log('ERR :: Contact ADD Operation');
+  }
+};
 
-export const create: any = createAsyncThunk(
-  `contacts/create`,
-  async ({ contact }: any, { dispatch, getState }) => await ContactService.add(contact)
-);
-
-export const remove: any = createAsyncThunk(
-  `contacts/delete`,
-  async ({ contactId }: any, { dispatch, getState }) => await ContactService.delete(contactId)
-);
+export const remove = (courseId: number) => async (dispatch: any) => {
+  try {
+    await ContactService.delete(courseId);
+    dispatch(deleteContact(courseId));
+  } catch (error) {
+    console.log('ERR :: Contact DELETE Operation');
+  }
+};

@@ -1,20 +1,21 @@
 import { get, remove } from '@store/contacts/effects';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { DeleteIcon, PhoneIcon, UserIcon } from '../../../public/assets/icons';
 
 function ContactList(props: any) {
-  const { contacts, getAll, removeIt } = props;
+  const contacts: any[] = useSelector((state: any) => state.contactReducer.contacts);
+  const dispatch = useDispatch();
+
   const removeContact = async (id: number) => {
     if (!window.confirm('Are you sure?')) {
       return;
     }
-    removeIt({ contactId: id });
+    dispatch(remove(id));
   };
 
   useEffect(() => {
-    getAll();
+    dispatch(get());
   }, []);
 
   return (
@@ -52,13 +53,4 @@ function ContactList(props: any) {
   );
 }
 
-function mapStateToProps(state: any) {
-  return { contacts: state.contactReducer.contacts };
-}
-function mapDispatchToProps(dispatch: any) {
-  return {
-    getAll: bindActionCreators(get, dispatch),
-    removeIt: bindActionCreators(remove, dispatch)
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default ContactList;

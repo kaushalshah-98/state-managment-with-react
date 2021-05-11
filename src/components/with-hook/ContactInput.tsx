@@ -1,14 +1,15 @@
 import { create } from '@store/contacts/effects';
 import { useRef, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { LoadingSpinner } from '../../../public/assets/icons';
 
 function ContactInput(props: any) {
   const nameInputRef: any = useRef();
   const phoneInputRef: any = useRef();
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
-  const { createIt } = props;
+
   const submitForm = async (event: any) => {
     event.preventDefault();
     const name = nameInputRef.current.value;
@@ -17,7 +18,7 @@ function ContactInput(props: any) {
       return;
     }
     setLoading(true);
-    createIt({ contact: { id: new Date(), name, phone } });
+    dispatch(create({ id: new Date(), name, phone }));
     nameInputRef.current.value = '';
     phoneInputRef.current.value = '';
     setLoading(false);
@@ -53,20 +54,4 @@ function ContactInput(props: any) {
   );
 }
 
-// version 1
-const mapDispatchToProps = (dispatch: any) => ({
-  createIt: (event: any) => dispatch(create(event)) // <-- manually dispatches
-});
-
-// version 2
-// function mapDispatchToProps(dispatch: any) {
-//   return {
-//     createIt: bindActionCreators(create, dispatch)
-//   };
-// }
-
-// version 3
-// const mapDispatchToProps = {
-//   createIt: create // <-- yay: auto dispatches
-// };
-export default connect(null, mapDispatchToProps)(ContactInput);
+export default ContactInput;

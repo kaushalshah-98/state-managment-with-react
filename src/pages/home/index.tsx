@@ -1,5 +1,5 @@
-import ContactList from '@components/with-hooks/ContactList';
-import ContactInput from '@components/with-hooks/ContactInput';
+import ContactList from '@components/with-hoc/ContactList';
+import ContactInput from '@components/with-hoc/ContactInput';
 
 function App() {
   return (

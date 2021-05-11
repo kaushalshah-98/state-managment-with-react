@@ -1,4 +1,0 @@
-export const GET_CONTACTS = 'GET_CONTACTS';
-export const CREATE_CONTACT = 'CREATE_CONTACT';
-export const DELETE_CONTACT = 'DELETE_CONTACT';
-export const SET_CONTACTS = 'SET_CONTACTS';

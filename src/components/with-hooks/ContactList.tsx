@@ -5,13 +5,12 @@ import { bindActionCreators } from 'redux';
 import { DeleteIcon, PhoneIcon, UserIcon } from '../../../public/assets/icons';
 
 function ContactList(props: any) {
-  console.log(props);
   const { contacts, getAll, removeIt } = props;
   const removeContact = async (id: number) => {
     if (!window.confirm('Are you sure?')) {
       return;
     }
-    removeIt(id);
+    removeIt({ contactId: id });
   };
 
   useEffect(() => {

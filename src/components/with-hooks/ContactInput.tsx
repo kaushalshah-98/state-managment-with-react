@@ -17,7 +17,7 @@ function ContactInput(props: any) {
       return;
     }
     setLoading(true);
-    createIt({ id: new Date(), name, phone });
+    createIt({ contact: { id: new Date(), name, phone } });
     nameInputRef.current.value = '';
     phoneInputRef.current.value = '';
     setLoading(false);

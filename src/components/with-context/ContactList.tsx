@@ -1,13 +1,9 @@
-import { ContactStore } from '@store/mobx/contact';
-import { inject, observer } from 'mobx-react';
+import { useContact } from '@store/contact';
 import { useEffect } from 'react';
 import { DeleteIcon, PhoneIcon, UserIcon } from '../../../public/assets/icons';
 
-function ContactList({ contactStore }: { contactStore: ContactStore }) {
-  // using context
-  // const { contacts, deleteContact, loading, getContacts } = useContact();
-
-  const { contacts, deleteContact, loading, getContacts } = contactStore;
+function ContactList() {
+  const { contacts, deleteContact, loading, getContacts } = useContact();
 
   const removeContact = async (id: number) => {
     if (!window.confirm('Are you sure?')) {
@@ -54,5 +50,5 @@ function ContactList({ contactStore }: { contactStore: ContactStore }) {
     </div>
   );
 }
-export default inject(({ store }) => store)(observer(ContactList));
+export default ContactList;
 // export default observer(ContactList);

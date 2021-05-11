@@ -56,8 +56,10 @@ class ContactStore {
     }
   };
 }
-const { Consumer: ContactConsummer, Provider: ContactProvider, useStore: useContact } = createStore(
-  new ContactStore()
-);
+const {
+  Consumer: ContactConsummer,
+  Provider: ContactProvider,
+  useStore: useContact
+} = createStore(new ContactStore());
 
 export { ContactConsummer, useContact, ContactStore, ContactProvider };

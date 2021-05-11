@@ -1,8 +1,6 @@
-import APP_THEME from '@public/assets/js/theme';
-import { store } from '@store/index';
 import { ContactProvider } from '@store/contact';
+import { store } from '@store/index';
 import { Provider } from 'mobx-react';
-import { ThemeProvider } from 'styled-components';
 import { FC } from 'react';
 
 function combineProviders(...providers: FC[]) {
@@ -12,16 +10,14 @@ function combineProviders(...providers: FC[]) {
       children
     );
 }
-
+1;
 const CombinedProviders = combineProviders(ContactProvider);
 
 function AllProviders({ children }: any) {
   return (
-    <ThemeProvider theme={APP_THEME}>
-      <Provider store={store}>
-        <CombinedProviders>{children}</CombinedProviders>
-      </Provider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <CombinedProviders>{children}</CombinedProviders>
+    </Provider>
   );
 }
 

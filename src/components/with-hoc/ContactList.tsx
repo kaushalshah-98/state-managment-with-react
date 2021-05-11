@@ -1,13 +1,11 @@
-import { ContactStore } from '@store/mobx/contact';
+import { ContactStore } from '@store/contact';
 import { inject, observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { DeleteIcon, PhoneIcon, UserIcon } from '../../../public/assets/icons';
 
 function ContactList({ contactStore }: { contactStore: ContactStore }) {
-  // using context
-  // const { contacts, deleteContact, loading, getContacts } = useContact();
-
   const { contacts, deleteContact, loading, getContacts } = contactStore;
+  console.log(contacts);
 
   const removeContact = async (id: number) => {
     if (!window.confirm('Are you sure?')) {
@@ -25,11 +23,11 @@ function ContactList({ contactStore }: { contactStore: ContactStore }) {
       {contacts?.length > 0 ? (
         contacts.map((contact: any) => (
           <div key={contact.id} className="contact-card group ">
-            <img
+            {/* <img
               src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
               alt="headshot"
               className="contact-image"
-            />
+            /> */}
             <div className="relative w-full p-2">
               <button className="delete-button" onClick={() => removeContact(contact.id)}>
                 <DeleteIcon className="" />

@@ -7,7 +7,7 @@ export class ContactService {
   static add = (data: any) => {
     return ApiCaller.httpPost(data, `contacts`);
   };
-  static delete = (id: number) => {
+  static delete = (id: string) => {
     return ApiCaller.httpDelete(`contacts/${id}`);
   };
 }

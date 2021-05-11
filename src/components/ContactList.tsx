@@ -1,20 +1,29 @@
+import { ContactService } from '@src/services/contactApi';
 import { useContact } from '@store/contact';
-import { observer } from 'mobx-react';
 import { useEffect } from 'react';
-import { DeleteIcon, PhoneIcon, UserIcon } from '../../../public/assets/icons';
+import { DeleteIcon, PhoneIcon, UserIcon } from '../../public/assets/icons';
 
 function ContactList() {
-  const { contacts, deleteContact, loading, getContacts } = useContact();
-  const removeContact = async (id: number) => {
+  const { state, dispatch } = useContact();
+  const { contacts, loading } = state;
+
+  useEffect(() => {
+    get();
+  }, []);
+
+  const removeContact = async (id: string) => {
     if (!window.confirm('Are you sure?')) {
       return;
     }
-    deleteContact(id);
+    await ContactService.delete(id);
+    dispatch({ type: 'DELETE', payload: id });
   };
 
-  useEffect(() => {
-    getContacts();
-  }, []);
+  const get = async () => {
+    const res = await ContactService.getAll();
+    console.log('res', res);
+    dispatch({ type: 'SET', payload: res });
+  };
 
   return (
     <div className="contacts-wrapper">
@@ -51,4 +60,4 @@ function ContactList() {
   );
 }
 // export default ContactList;
-export default observer(ContactList);
+export default ContactList;

@@ -115,6 +115,7 @@ export class ApiCaller {
       const res = await fetch(URL, options);
       return res.json();
     } catch (err) {
+      console.log(err);
       throw err;
     }
   };

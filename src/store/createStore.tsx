@@ -1,15 +1,17 @@
-import React, { createContext, FC, useContext } from 'react';
+import React, { createContext, Dispatch, FC, Reducer, useReducer } from 'react';
 
-const createStore = (store: any) => {
-  const Context = createContext(store);
+const createStore = <S extends {}, A extends {}>(reducer: Reducer<S, A>, initialState: S) => {
+  // tslint:disable-next-line: no-empty
+  const contextValues: [S, Dispatch<A>] = [initialState, (action) => {}];
+
+  const Context = createContext<[S, Dispatch<A>]>(contextValues);
 
   const Provider: FC = (props: any) => {
+    const store = useReducer(reducer, initialState);
     return <Context.Provider value={store}>{props.children}</Context.Provider>;
   };
-  const useStore = () => {
-    return useContext(Context);
-  };
-  return { Context, Provider, useStore, Consumer: Context.Consumer };
+
+  return { Context, Provider, Consumer: Context.Consumer };
 };
 
 export default createStore;

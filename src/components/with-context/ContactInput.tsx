@@ -1,6 +1,7 @@
 // tslint:disable: linebreak-style
 
 import { useContact } from '@store/contact';
+import { observer } from 'mobx-react';
 import { useRef, useState } from 'react';
 import { LoadingSpinner } from '../../../public/assets/icons';
 
@@ -8,7 +9,6 @@ function ContactInput() {
   const { addContact } = useContact();
   const nameInputRef: any = useRef();
   const phoneInputRef: any = useRef();
-
   const [loading, setLoading] = useState(false);
 
   const submitForm = async (event: any) => {
@@ -54,5 +54,5 @@ function ContactInput() {
     </>
   );
 }
-export default ContactInput;
+export default observer(ContactInput);
 // export default inject(({ store }) => store.contactStore)(observer(ContactInput));

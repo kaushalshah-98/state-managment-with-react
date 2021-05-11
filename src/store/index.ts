@@ -1,6 +1,2 @@
-import { ContactStore } from './contact';
-export * from './contact';
-
-export const store = {
-  contactStore: new ContactStore()
-};
+import configureStore from './createStore';
+export const store = configureStore();

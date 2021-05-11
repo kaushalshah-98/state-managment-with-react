@@ -1,7 +1,6 @@
-import ContactList from '@components/with-context/ContactList';
-import ContactInput from '@components/with-context/ContactInput';
-// import ContactList from '@components/with-hoc/ContactList';
-// import ContactInput from '@components/with-hoc/ContactInput';
+import ContactList from '@components/with-hooks/ContactList';
+import ContactInput from '@components/with-hooks/ContactInput';
+
 function App() {
   return (
     <div className="container mx-auto">

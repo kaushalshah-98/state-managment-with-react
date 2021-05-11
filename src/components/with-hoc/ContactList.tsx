@@ -1,21 +1,21 @@
-import { ContactStore } from '@store/contact';
-import { inject, observer } from 'mobx-react';
+import { get, remove } from '@store/contacts/effects';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { DeleteIcon, PhoneIcon, UserIcon } from '../../../public/assets/icons';
 
-function ContactList({ contactStore }: { contactStore: ContactStore }) {
-  const { contacts, deleteContact, loading, getContacts } = contactStore;
-  console.log(contacts);
+function ContactList(props: any) {
+  const contacts: any[] = useSelector((state: any) => state.contactReducer.contacts);
+  const dispatch = useDispatch();
 
   const removeContact = async (id: number) => {
     if (!window.confirm('Are you sure?')) {
       return;
     }
-    deleteContact(id);
+    dispatch(remove(id));
   };
 
   useEffect(() => {
-    getContacts();
+    dispatch(get());
   }, []);
 
   return (
@@ -23,11 +23,11 @@ function ContactList({ contactStore }: { contactStore: ContactStore }) {
       {contacts?.length > 0 ? (
         contacts.map((contact: any) => (
           <div key={contact.id} className="contact-card group ">
-            {/* <img
+            <img
               src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
               alt="headshot"
               className="contact-image"
-            /> */}
+            />
             <div className="relative w-full p-2">
               <button className="delete-button" onClick={() => removeContact(contact.id)}>
                 <DeleteIcon className="" />
@@ -46,11 +46,11 @@ function ContactList({ contactStore }: { contactStore: ContactStore }) {
         ))
       ) : contacts ? (
         <p>You have no contacts yet</p>
-      ) : loading ? (
+      ) : false ? (
         <p>Loading..</p>
       ) : null}
     </div>
   );
 }
-export default inject(({ store }) => store)(observer(ContactList));
-// export default observer(ContactList);
+
+export default ContactList;

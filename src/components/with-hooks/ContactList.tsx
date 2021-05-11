@@ -1,19 +1,21 @@
-import { useContact } from '@store/contact';
-import { observer } from 'mobx-react';
+import { get, remove } from '@store/contacts/effects';
 import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { DeleteIcon, PhoneIcon, UserIcon } from '../../../public/assets/icons';
 
-function ContactList() {
-  const { contacts, deleteContact, loading, getContacts } = useContact();
+function ContactList(props: any) {
+  console.log(props);
+  const { contacts, getAll, removeIt } = props;
   const removeContact = async (id: number) => {
     if (!window.confirm('Are you sure?')) {
       return;
     }
-    deleteContact(id);
+    removeIt(id);
   };
 
   useEffect(() => {
-    getContacts();
+    getAll();
   }, []);
 
   return (
@@ -44,11 +46,20 @@ function ContactList() {
         ))
       ) : contacts ? (
         <p>You have no contacts yet</p>
-      ) : loading ? (
+      ) : false ? (
         <p>Loading..</p>
       ) : null}
     </div>
   );
 }
-// export default ContactList;
-export default observer(ContactList);
+
+function mapStateToProps(state: any) {
+  return { contacts: state.contactReducer.contacts };
+}
+function mapDispatchToProps(dispatch: any) {
+  return {
+    getAll: bindActionCreators(get, dispatch),
+    removeIt: bindActionCreators(remove, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

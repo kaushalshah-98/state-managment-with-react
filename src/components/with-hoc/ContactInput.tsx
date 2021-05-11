@@ -1,17 +1,12 @@
-// tslint:disable: linebreak-style
-
-import { ContactStore } from '@store/contact';
-import { inject, observer } from 'mobx-react';
+import { create } from '@store/contacts/effects';
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { LoadingSpinner } from '../../../public/assets/icons';
 
-function ContactInput({ contactStore }: { contactStore: ContactStore }) {
-  const { addContact } = contactStore;
-  // using context
-  // const { addContact } = useContact();
-
+function ContactInput(props: any) {
   const nameInputRef: any = useRef();
   const phoneInputRef: any = useRef();
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +18,7 @@ function ContactInput({ contactStore }: { contactStore: ContactStore }) {
       return;
     }
     setLoading(true);
-    await addContact({ name, phone, id: new Date() });
+    dispatch(create({ id: new Date(), name, phone }));
     nameInputRef.current.value = '';
     phoneInputRef.current.value = '';
     setLoading(false);
@@ -58,5 +53,5 @@ function ContactInput({ contactStore }: { contactStore: ContactStore }) {
     </>
   );
 }
-export default inject(({ store }) => store)(observer(ContactInput));
-// export default inject(({ store }) => store.contactStore)(observer(ContactInput));
+
+export default ContactInput;

@@ -1,16 +1,14 @@
-// tslint:disable: linebreak-style
-
-import { useContact } from '@store/contact';
-import { observer } from 'mobx-react';
+import { create } from '@store/contacts/effects';
 import { useRef, useState } from 'react';
+import { connect } from 'react-redux';
 import { LoadingSpinner } from '../../../public/assets/icons';
 
-function ContactInput() {
-  const { addContact } = useContact();
+function ContactInput(props: any) {
   const nameInputRef: any = useRef();
   const phoneInputRef: any = useRef();
-  const [loading, setLoading] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+  const { createIt } = props;
   const submitForm = async (event: any) => {
     event.preventDefault();
     const name = nameInputRef.current.value;
@@ -19,7 +17,7 @@ function ContactInput() {
       return;
     }
     setLoading(true);
-    await addContact({ name, phone, id: new Date() });
+    createIt({ id: new Date(), name, phone });
     nameInputRef.current.value = '';
     phoneInputRef.current.value = '';
     setLoading(false);
@@ -54,5 +52,21 @@ function ContactInput() {
     </>
   );
 }
-export default observer(ContactInput);
-// export default inject(({ store }) => store.contactStore)(observer(ContactInput));
+
+// version 1
+const mapDispatchToProps = (dispatch: any) => ({
+  createIt: (event: any) => dispatch(create(event)) // <-- manually dispatches
+});
+
+// version 2
+// function mapDispatchToProps(dispatch: any) {
+//   return {
+//     createIt: bindActionCreators(create, dispatch)
+//   };
+// }
+
+// version 3
+// const mapDispatchToProps = {
+//   createIt: create // <-- yay: auto dispatches
+// };
+export default connect(null, mapDispatchToProps)(ContactInput);
